@@ -33,6 +33,13 @@
             padding: 10px 20px;
             font-size: 16px;
         }
+        .fixed-corner {
+            position: fixed;
+            bottom:10px;
+            right: 10px;
+            font-size: 20px;
+            color: #000;
+        }
     </style>
 </head>
 <body>
@@ -62,7 +69,7 @@
         <button onclick="calculateKC()">計算</button>
         <p id="result"></p>
     </div>
-
+    <div class="fixed-corner">KSSH</div>
     <script>
         function calculateKC() {
             var a = document.getElementById("slope").value;
