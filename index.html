@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KC 計算器</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin: 10px 0;
+        }
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KC 計算器</h1>
+        <div class="input-group">
+            <p>輸入斜率與截距:</p>
+            <input type="number" id="slope" placeholder="斜率">
+            <input type="number" id="intercept" placeholder="截距">
+        </div>
+        <div class="input-group">
+            <p>輸入EV:</p>
+            <input type="number" id="EV" placeholder="EV">
+        </div>
+        <div class="input-group">
+            <p>輸入[Fe3+]反應初濃度:</p>
+            <input type="number" id="c1" placeholder="[Fe3+] 初濃度">
+        </div>
+        <div class="input-group">
+            <p>輸入[SCN-]反應初濃度:</p>
+            <input type="number" id="c3" placeholder="[SCN-] 初濃度">
+        </div>
+        <div class="input-group">
+            <p>輸入未知液高度(cm):</p>
+            <input type="number" id="h2" placeholder="未知液高度 (cm)">
+        </div>
+        <button onclick="calculateKC()">計算</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function calculateKC() {
+            var a = document.getElementById("slope").value;
+            var b = document.getElementById("intercept").value;
+            var EV = document.getElementById("EV").value;
+            var c1 = document.getElementById("c1").value;
+            var c3 = document.getElementById("c3").value;
+            var h2 = document.getElementById("h2").value;
+
+            var x = (EV - b) / a;
+            var c2, KC;
+
+            if (c1 < c3) {
+                c2 = (c1 * x) / h2;
+                KC = c2 / ((c1 - c2) * (c3 - c2));
+            } else {
+                c2 = (c3 * x) / h2;
+                KC = c2 / ((c1 - c2) * (c3 - c2));
+            }
+
+            document.getElementById("result").innerHTML = "KC = " + KC;
+        }
+    </script>
+</body>
+</html>
